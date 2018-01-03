@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var TransactionOrigin_1 = require("./src/TransactionOrigin");
+var Person_1 = require("./src/Person");
+var accountHolder = "Bailie";
+var checkingBalance = 1000;
+var savingsBalance = 10000;
+var retirementBalance = 100000;
+var dateOfBirth = new Date(1996, 12, 10);
+var bailie = new Person_1.Person(accountHolder, dateOfBirth, checkingBalance, savingsBalance, retirementBalance);
+bailie.checking.advanceDate(30);
+bailie.savings.depositMoney(100, "money from grandma");
+bailie.retirement.withdrawMoney(1000, "broke", TransactionOrigin_1.TransactionOrigin.web);
+console.log(savingsBalance);
