@@ -1,3 +1,7 @@
+import {AccountType} from "./AccountType";
+import {Transaction} from "./Transaction";
+import {TransactionOrigin} from "./TransactionOrigin";
+
 export interface Account {
   accountHolderName: string;
   accountHolderBirthDate: Date;

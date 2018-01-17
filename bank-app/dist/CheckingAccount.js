@@ -1,44 +1,52 @@
 "use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+var TransactionOrigin_1 = require("./TransactionOrigin");
+var Decorators_1 = require("./Decorators");
 var CheckingAccount = (function () {
     function CheckingAccount() {
+        this.balance = 1000;
+        this.dateOpened = new Date();
     }
     CheckingAccount.prototype.withdrawMoney = function (amount, description, transactionOrigin) {
-        this.balance -= amount;
-        var output = new Transaction(true, amount, this.balance, new Date(), description, "");
-        this.accountHistory.push(output);
-        return output;
+        var currentBalance = this.balance;
+        this.accountType = 1;
+        if (TransactionOrigin_1.TransactionOrigin == TransactionOrigin_1.TransactionOrigin.branch || TransactionOrigin_1.TransactionOrigin.phone || TransactionOrigin_1.TransactionOrigin.web) {
+            this.amount = amount;
+            if (amount > currentBalance) {
+                this.success = false;
+                this.errorMessage = "Cannot Withdrawl. You have no $$";
+                this.resultBalance = this.balance;
+                this.transactionDate = new Date();
+                this.description = description;
+            }
+            else {
+                this.success = true;
+                this.errorMessage = "";
+                this.resultBalance = this.balance -= amount;
+                this.transactionDate = new Date();
+                this.description = description;
+            }
+            return;
+        }
     };
     CheckingAccount.prototype.depositMoney = function (amount, description) {
         this.balance += amount;
-        var output = new Transaction(true, amount, this.balance, new Date(), description, "");
-        this.accountHistory.push(output);
-        return output;
+        this.resultBalance = this.balance;
+        this.success = true;
+        this.description = description;
+        this.errorMessage = "";
+        this.transactionDate = new Date();
+        return;
     };
-    CheckingAccount.prototype.advanceDate = function (numberOfDays) {
-        var startingDay = this.currentDate.getDate();
-        var startingMonth = this.currentDate.getMonth();
-        var startingYear = this.currentDate.getFullYear();
-        if (numberOfDays < 1) {
-            return this.balance;
-        }
-        else {
-            this.currentDate.setDate(startingDay + numberOfDays);
-        }
-        if (startingMonth !== this.currentDate.getMonth() || startingYear !== this.currentDate.getFullYear()) {
-            var recursionCounter = function (currentYear, currentMonth) {
-                var counterYear = (currentYear - startingYear) * 12;
-                var counterMonths = currentMonth - startingMonth;
-                if (counterMonths < 0) {
-                    counterMonths += startingMonth;
-                }
-                return counterMonths + counterYear;
-            }(this.currentDate.getFullYear(), this.currentDate.getMonth());
-            var rate = this.interestCategory * .01;
-            this.addInterest(rate, recursionCounter);
-        }
-        return this.balance;
-    };
+    CheckingAccount = __decorate([
+        Decorators_1.displayClassName
+    ], CheckingAccount);
     return CheckingAccount;
 }());
 exports.CheckingAccount = CheckingAccount;

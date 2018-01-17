@@ -4,59 +4,60 @@ import {Account} from './Account';
 import {TransactionOrigin} from "./TransactionOrigin";
 import {displayClassName, displayClassNameWithPurpose} from "./Decorators";
 
-export class CheckingAccount implements Account {
-    displayName: string;
-    id: string;
-    imageURL?: string;
-    name?: string;
-    rpDisplayName: string;
+@displayClassName
+
+    export class CheckingAccount implements Account, Transaction {
+
+    constructor() {
+        this.dateOpened = new Date();
+    }
+
     accountHolderName: string;
     accountHolderBirthDate: Date;
-    balance: number;
+    balance: number = 1000;
     accountType: AccountType;
     accountHistory: Transaction[];
+    success: boolean;
+    resultBalance: number;
+    amount: number;
+    description: string;
+    transactionDate: Date;
+    errorMessage: string;
+    dateOpened: Date;
+    advanceDate: any;
 
     withdrawMoney(amount: number, description: string, transactionOrigin: TransactionOrigin): Transaction {
-        this.balance -= amount;
-        const output = new Transaction(true, amount, this.balance, new Date(), description, "");
-        this.accountHistory.push(output);
-        return output;
+        var currentBalance = this.balance;
+        this.accountType = 1;
+        if (TransactionOrigin == TransactionOrigin.branch || TransactionOrigin.phone || TransactionOrigin.web) {
+            this.amount = amount;
+            if (amount > currentBalance) {
+                this.success = false;
+                this.errorMessage = "Cannot Withdrawl. You have no $$";
+                this.resultBalance = this.balance;
+                this.transactionDate = new Date();
+                this.description = description;
+            }
+            else {
+                this.success = true;
+                this.errorMessage = "";
+                this.resultBalance = this.balance -= amount;
+                this.transactionDate = new Date();
+                this.description = description;
+            }
+            return;
+        }
     }
 
     depositMoney(amount: number, description: string): Transaction {
         this.balance += amount;
-        const output = new Transaction(true, amount, this.balance, new Date(), description, "");
-        this.accountHistory.push(output);
-        return output;
-    }
+        this.resultBalance = this.balance;
+        this.success = true;
+        this.description = description;
+        this.errorMessage = "";
+        this.transactionDate = new Date();
 
-    advanceDate(numberOfDays: number) {
-        const startingDay: number = this.currentDate.getDate();
-        const startingMonth: number = this.currentDate.getMonth();
-        const startingYear: number = this.currentDate.getFullYear();
+        return;
 
-        if (numberOfDays < 1) {
-            return this.balance;
-        } else {
-            this.currentDate.setDate(startingDay + numberOfDays);
-        }
-
-        if (startingMonth !== this.currentDate.getMonth() || startingYear !== this.currentDate.getFullYear()) {
-            const recursionCounter = function (currentYear: number, currentMonth: number): number {
-
-                const counterYear: number = (currentYear - startingYear) * 12;
-                let counterMonths: number = currentMonth - startingMonth;
-
-                if (counterMonths < 0) {
-                    counterMonths += startingMonth;
-                }
-                return counterMonths + counterYear;
-
-            }(this.currentDate.getFullYear(), this.currentDate.getMonth());
-
-            const rate: number = this.interestCategory * .01;
-            this.addInterest(rate, recursionCounter);
-        }
-        return this.balance;
     }
 }
