@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var AccountType_1 = require("./AccountType");
+import { AccountType } from './AccountType';
 var RetirementAccount = (function () {
     function RetirementAccount() {
         this.Transaction = {
@@ -8,9 +6,10 @@ var RetirementAccount = (function () {
                 this.dateOpened = new Date();
             },
             accountHolderName: string,
+            currentDate: any,
             accountBirthDate: Date,
             balance: number = 100000,
-            accountType: AccountType_1.AccountType,
+            accountType: AccountType,
             accountHistory: Transaction[],
             success: boolean,
             resultBalance: number,
@@ -85,10 +84,18 @@ var RetirementAccount = (function () {
                 this.errorMessage = "";
                 this.tranactionDate = new Date();
                 return;
+            },
+            advancedDate: function (numberOfDays) {
+                for (var i = 0; i < numberOfDays; i++) {
+                    this.currentDate.setDate(this.currentDate.getDate() + 1);
+                    if (this.currentDate.Date() === 1) {
+                        this.balance = this.balance + (this.balance * (.01 / 12));
+                    }
+                }
             }
         };
     }
     return RetirementAccount;
 }());
-exports.RetirementAccount = RetirementAccount;
+export { RetirementAccount };
 //# sourceMappingURL=RetirementAccount.js.map

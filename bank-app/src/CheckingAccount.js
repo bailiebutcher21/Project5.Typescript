@@ -44,6 +44,15 @@ var CheckingAccount = (function () {
         this.transactionDate = new Date();
         return;
     };
+    CheckingAccount.prototype.advanceDate = function (numberOfDays) {
+        for (i = 0, i < numberOfDays, i++;;) {
+            var newDate = new Date(Date.setTime(Date.getTime() + days * 86400000));
+            if (currentDate.Date() == 1) {
+                //calculate Interest (Moment)
+            }
+            return this.balance;
+        }
+    };
     CheckingAccount = __decorate([
         Decorators_1.displayClassName
     ], CheckingAccount);

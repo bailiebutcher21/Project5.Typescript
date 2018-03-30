@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "sourceMap": true,
-    "module": "commonjs",
+    "module": "es6",
     "outDir": "dist",
     "watch": true,
     "experimentalDecorators": true

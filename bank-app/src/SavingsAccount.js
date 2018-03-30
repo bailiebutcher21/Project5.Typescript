@@ -6,7 +6,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var Transaction_1 = require("../Transaction");
 var TransactionOrigin_1 = require("../Enums/TransactionOrigin");
 var Decorators_1 = require("../Decorators");
 var SavingsAccount = (function () {
@@ -61,20 +60,12 @@ var SavingsAccount = (function () {
         }
         return;
     };
+    SavingsAccount.prototype.depositMoney = function (amount, description) {
+    };
+    ;
     SavingsAccount = __decorate([
         Decorators_1.displayClassName
     ], SavingsAccount);
     return SavingsAccount;
 }());
 exports.SavingsAccount = SavingsAccount;
-depositMoney(amount, number, description, string);
-Transaction_1.Transaction;
-{
-    this.balance += amount;
-    this.resultBalance = this.balance;
-    this.success = true;
-    this.description = description;
-    this.errorMessage = "";
-    this.transactionDate = new Date();
-    return;
-}

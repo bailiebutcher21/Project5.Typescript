@@ -1,13 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var CheckingAccount_1 = require("./CheckingAccount");
-var SavingsAccount_1 = require("./SavingsAccount");
-var RetirementAccount_1 = require("./RetirementAccount");
+import { CheckingAccount } from "./CheckingAccount";
+import { SavingsAccount } from "./SavingsAccount";
+import { RetirementAccount } from "./RetirementAccount";
 var Person = (function () {
     function Person() {
-        this.checking = new CheckingAccount_1.CheckingAccount();
-        this.savings = new SavingsAccount_1.SavingsAccount();
-        this.retirement = new RetirementAccount_1.RetirementAccount();
+        this.checking = new CheckingAccount();
+        this.savings = new SavingsAccount();
+        this.retirement = new RetirementAccount();
         this.name = name;
         this.dateOfBirth = new Date(1996, 10, 12);
         this.checkingBalance = 1000;
@@ -16,5 +14,5 @@ var Person = (function () {
     }
     return Person;
 }());
-exports.Person = Person;
+export { Person };
 //# sourceMappingURL=Person.js.map

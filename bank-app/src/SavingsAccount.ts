@@ -12,6 +12,7 @@ export class SavingsAccount implements Account {
     }
 
     dateOpened: Date;
+    currentDate: any;
     errorMessage:string;
     transactionDate: Date;
     description: string;
@@ -79,17 +80,26 @@ export class SavingsAccount implements Account {
 
         return;
     }
-}
-depositMoney(amount: number, description: string):
-
-Transaction {
-    this.balance += amount;
-    this.resultBalance =this.balance;
-    this.success = true;
-    this.description = description;
-    this.errorMessage="";
-    this.transactionDate = new Date();
-
-    return;
+    depositMoney(amount: number, description: string) {
+    };
+    //
+    // Transaction(){
+    //     this.balance += amount;
+    //     this.resultBalance =this.balance;
+    //     this.success = true;
+    //     this.description = description;
+    //     this.errorMessage="";
+    //     this.transactionDate = new Date();
+    //
+    //     return;
+    // }
+advancedDate(numberOfDays: number) {
+    for (let i = 0; i < numberOfDays; i++){
+        this.currentDate.setDate(this.currentDate.getDate() + 1);
+        if(this.currentDate.Date() === 1) {
+            this.balance = this.balance + (this.balance * (.01 / 12))
+            }
+         }
     }
 }
+

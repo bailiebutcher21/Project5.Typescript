@@ -5,12 +5,13 @@ import {TransactionOrigin} from './TransactionOrigin';
 import {displayClassName, displayClassNameWithPurpose} from './Decorators';
 
 export class RetirementAccount implements Account {
-    Transaction {
+    Transaction = {
     constructor() {
         this.dateOpened = new Date();
     }
 
     accountHolderName: string;
+    currentDate: any;
     accountBirthDate: Date;
     balance: number = 100000;
     accountType: AccountType;
@@ -99,5 +100,13 @@ export class RetirementAccount implements Account {
 
     }
 
+    advancedDate(numberOfDays: number) {
+        for (let i = 0; i < numberOfDays; i++) {
+            this.currentDate.setDate(this.currentDate.getDate() + 1);
+            if (this.currentDate.Date() === 1) {
+                this.balance = this.balance + (this.balance * (.01 / 12))
+            }
+        }
+    }
 }
-
+}

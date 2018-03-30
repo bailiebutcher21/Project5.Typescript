@@ -25,6 +25,7 @@ import {displayClassName, displayClassNameWithPurpose} from "./Decorators";
     errorMessage: string;
     dateOpened: Date;
     advanceDate: any;
+    currentDate: any;
 
     withdrawMoney(amount: number, description: string, transactionOrigin: TransactionOrigin): Transaction {
         var currentBalance = this.balance;
@@ -60,4 +61,15 @@ import {displayClassName, displayClassNameWithPurpose} from "./Decorators";
         return;
 
     }
+
+    advancedDate(numberOfDays: number) {
+        for (let i = 0; i < numberOfDays; i++){
+            this.currentDate.setDate(this.currentDate.getDate() + 1);
+            if(this.currentDate.Date() === 1) {
+                this.balance = this.balance + (this.balance * (.01 / 12))
+            }
+        }
+    }
 }
+
+

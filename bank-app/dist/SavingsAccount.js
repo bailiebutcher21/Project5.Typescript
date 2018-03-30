@@ -1,14 +1,11 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-var Transaction_1 = require("../Transaction");
-var TransactionOrigin_1 = require("../Enums/TransactionOrigin");
-var Decorators_1 = require("../Decorators");
+import { TransactionOrigin } from "../Enums/TransactionOrigin";
+import { displayClassName } from "../Decorators";
 var SavingsAccount = (function () {
     function SavingsAccount() {
         this.balance = 10000;
@@ -19,7 +16,7 @@ var SavingsAccount = (function () {
         var currentBalance = this.balance;
         this.accountType = 2;
         this.amount = amount;
-        if (transactionOrigin == TransactionOrigin_1.TransactionOrigin.branch || TransactionOrigin_1.TransactionOrigin.phone || TransactionOrigin_1.TransactionOrigin.web) {
+        if (transactionOrigin == TransactionOrigin.branch || TransactionOrigin.phone || TransactionOrigin.web) {
             this.amount = amount;
             if (this.monthlyTransactions >= 1) {
                 if (amount > currentBalance) {
@@ -61,21 +58,32 @@ var SavingsAccount = (function () {
         }
         return;
     };
+    SavingsAccount.prototype.depositMoney = function (amount, description) {
+    };
+    ;
+    //
+    // Transaction(){
+    //     this.balance += amount;
+    //     this.resultBalance =this.balance;
+    //     this.success = true;
+    //     this.description = description;
+    //     this.errorMessage="";
+    //     this.transactionDate = new Date();
+    //
+    //     return;
+    // }
+    SavingsAccount.prototype.advancedDate = function (numberOfDays) {
+        for (var i = 0; i < numberOfDays; i++) {
+            this.currentDate.setDate(this.currentDate.getDate() + 1);
+            if (this.currentDate.Date() === 1) {
+                this.balance = this.balance + (this.balance * (.01 / 12));
+            }
+        }
+    };
     SavingsAccount = __decorate([
-        Decorators_1.displayClassName
+        displayClassName
     ], SavingsAccount);
     return SavingsAccount;
 }());
-exports.SavingsAccount = SavingsAccount;
-depositMoney(amount, number, description, string);
-Transaction_1.Transaction;
-{
-    this.balance += amount;
-    this.resultBalance = this.balance;
-    this.success = true;
-    this.description = description;
-    this.errorMessage = "";
-    this.transactionDate = new Date();
-    return;
-}
+export { SavingsAccount };
 //# sourceMappingURL=SavingsAccount.js.map
